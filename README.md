@@ -35,6 +35,7 @@ Things you may want to cover:
 | last_name_ch       | string | null: false                |
 | first_name_ch      | string | null: false                |
 | last_name          | string | null: false                |
+| first_name         | string | null: false                |
 | date_of_birth      | date   | null: false                |
 
 ### Association
@@ -48,7 +49,7 @@ Things you may want to cover:
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
 | name               | string     | null: false                    |
-| text               | text       | null: false                    |
+| explanation        | text       | null: false                    |
 | category_id        | integer    | null: false                    |
 | condition_id       | integer    | null: false                    |
 | delivery_charge_id | integer    | null: false                    |
@@ -92,4 +93,4 @@ Things you may want to cover:
 
 ### Association
 
-- belongs_to :purchases
+- belongs_to :purchase
