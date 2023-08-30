@@ -11,4 +11,6 @@ class User < ApplicationRecord
   validates :first_name, presence: true, format: { with:/\A[ァ-ヶー－]+\z/ }
   validates :date_of_birth, presence: true
 
+  
+
 end
