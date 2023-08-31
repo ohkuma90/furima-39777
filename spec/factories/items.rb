@@ -7,7 +7,7 @@ FactoryBot.define do
     delivery_charge_id { rand(2..DeliveryCharge.count) }
     prefecture_id { rand(2..Prefecture.count) }
     days_to_ship_id { rand(2..DaysToShip.count) }
-    price { Faker::Number.between(from: 300, to: 9999999) }
+    price { Faker::Number.between(from: 300, to: 9_999_999) }
     association :user
 
     after(:build) do |item|
