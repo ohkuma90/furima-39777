@@ -3,7 +3,7 @@ function tax (){
   priceArea.addEventListener("keyup", () => {
     const priceString = priceArea.value;
     const price = parseInt(priceString, 10);
-    const tax = price / 10;
+    const tax = Math.floor(price / 10);;
     const profit = price - tax;
     const taxArea = document.getElementById("add-tax-price");
     const profitArea = document.getElementById("profit");
