@@ -23,20 +23,17 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    
-    if current_user != @item.user
-      redirect_to root_path
-    end
+    return unless current_user != @item.user
+
+    redirect_to root_path
   end
 
   def update
-    @item = Item.find(params[:id]) 
-
-  if @item.update(item_params)
-    redirect_to item_path(@item)
-  else
-    render :edit, status: :unprocessable_entity
-  end
+    if @item.update(item_params)
+      redirect_to item_path(@item)
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private
