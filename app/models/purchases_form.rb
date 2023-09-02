@@ -1,7 +1,9 @@
 class PurchaseForm
   include ActiveModel::Model
 
-  attr_accessor :item, :user, :post_code, :prefecture_id, :municipalities, :street_address, :building_name, :telephone_number, :purchase
+  attr_accessor :item_id, :user_id, :post_code, :prefecture_id, :municipalities, :street_address, :building_name, :telephone_number, :purchase_id
+  validates :item_id, presence: true
+  validates :user_id, presence: true
   validates :post_code, presence: true
   validates :prefecture_id, presence: true, numericality: { other_than: 1, message: "can't be blank" }
   validates :municipalities, presence: true
