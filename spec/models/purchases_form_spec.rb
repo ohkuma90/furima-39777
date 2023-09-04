@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe PurchasesForm, type: :model do
   before do
-    @purchase_form = FactoryBot.build(:purchases_form)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item)
+    @purchase_form = FactoryBot.build(:purchases_form, user_id: user.id, item_id: item.id)
   end
 
   context 'purchases_formが保存できる場合' do
@@ -81,6 +83,12 @@ RSpec.describe PurchasesForm, type: :model do
       @purchase_form.telephone_number = '090-1234-5678'
       @purchase_form.valid?
       expect(@purchase_form.errors.full_messages).to include('Telephone number is too long (maximum is 11 characters)')
+    end
+
+    it 'telephone_numberが英数混合では保存できない' do
+      @purchase_form.telephone_number = 'o9o-1234-5678'
+      @purchase_form.valid?
+      expect(@purchase_form.errors.full_messages).to include('Telephone number is invalid. Input only number')
     end
 
     it 'tokenが含まれていない場合では保存できない' do
