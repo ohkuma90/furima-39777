@@ -6,7 +6,7 @@ RSpec.describe PurchasesForm, type: :model do
   end
   
   context 'purchases_formが保存できる場合' do
-    it '全ての値が正しく入力されていれば保存できる' do
+    it '全ての値が正しく入力され、tokenが含まれていれば保存できる' do
       expect(@purchase_form).to be_valid
     end
 
@@ -81,6 +81,12 @@ RSpec.describe PurchasesForm, type: :model do
       @purchase_form.telephone_number = '090-1234-5678'
       @purchase_form.valid?
       expect(@purchase_form.errors.full_messages).to include("Telephone number is too long (maximum is 11 characters)")
+    end
+
+    it 'tokenが含まれていない場合では保存できない' do
+      @purchase_form.token = nil
+      @purchase_form.valid?
+      expect(@purchase_form.errors.full_messages).to include("Token can't be blank")
     end
   end
 end

@@ -8,6 +8,7 @@ class PurchasesController < ApplicationController
   def create
     @purchase_form = PurchasesForm.new(purchase_params)
     if @purchase_form.valid?
+      pay_item
       @purchase_form.save
       redirect_to root_path
     else
@@ -19,11 +20,24 @@ class PurchasesController < ApplicationController
   private
 
   def set_item
+    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @item = Item.find(params[:item_id])
   end
 
   def purchase_params
-    params.require(:purchases_form).permit(:post_code, :prefecture_id, :municipalities, :street_address, :building_name, :telephone_number).merge(item_id: params[:item_id], user_id: current_user.id, )
+    params.require(:purchases_form).permit(:post_code, :prefecture_id, :municipalities, :street_address, :building_name, :telephone_number).merge(item_id: params[:item_id], user_id: current_user.id, token: params[:token])
+  end
+
+  def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+      item_id = @purchase_form.item_id
+      item = Item.find(item_id)
+      price = item.price
+      Payjp::Charge.create(
+        amount: price,
+        card: @purchase_form.token,
+        currency: 'jpy'
+      )
   end
 
 end
