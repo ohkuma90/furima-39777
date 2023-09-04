@@ -4,7 +4,7 @@ RSpec.describe PurchasesForm, type: :model do
   before do
     @purchase_form = FactoryBot.build(:purchases_form)
   end
-  
+
   context 'purchases_formが保存できる場合' do
     it '全ての値が正しく入力され、tokenが含まれていれば保存できる' do
       expect(@purchase_form).to be_valid
@@ -15,7 +15,7 @@ RSpec.describe PurchasesForm, type: :model do
       expect(@purchase_form).to be_valid
     end
   end
-  
+
   context 'purchases_formが保存できない場合' do
     it 'item_idが空では保存できない' do
       @purchase_form.item_id = nil
@@ -38,7 +38,7 @@ RSpec.describe PurchasesForm, type: :model do
     it 'post_codeの-位置が異なる場合は保存できない' do
       @purchase_form.post_code = '00-000000'
       @purchase_form.valid?
-      expect(@purchase_form.errors.full_messages).to include("Post code is invalid. Enter it as follows (e.g. 123-4567)")
+      expect(@purchase_form.errors.full_messages).to include('Post code is invalid. Enter it as follows (e.g. 123-4567)')
     end
 
     it 'prefecture_idが空では保存できない' do
@@ -74,13 +74,13 @@ RSpec.describe PurchasesForm, type: :model do
     it 'telephone_numberが9文字以下では保存できない' do
       @purchase_form.telephone_number = '123456789'
       @purchase_form.valid?
-      expect(@purchase_form.errors.full_messages).to include("Telephone number is too short (minimum is 10 characters)")
+      expect(@purchase_form.errors.full_messages).to include('Telephone number is too short (minimum is 10 characters)')
     end
 
     it 'telephone_numberが12文字以上では保存できない' do
       @purchase_form.telephone_number = '090-1234-5678'
       @purchase_form.valid?
-      expect(@purchase_form.errors.full_messages).to include("Telephone number is too long (maximum is 11 characters)")
+      expect(@purchase_form.errors.full_messages).to include('Telephone number is too long (maximum is 11 characters)')
     end
 
     it 'tokenが含まれていない場合では保存できない' do
